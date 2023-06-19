@@ -8,7 +8,7 @@ The name Cycloduck comes from the resemblance of the created product to a duck a
 
 The aim of the project was to implement a wide range depth camera using a distance sensor and two servo motors as base structure. Due to it being more than a software project, two aspects will be mentioned in this README file.
 
-For the hardware part, the distance sensor and servo were connected to the Arduino, a mini breadboard was also used for necessary purposes. Servo motors were programmed to control a 2-axis pan/tilt kit, then the distance sensor was set on the mentioned kit to scan a wide area. ROWS and COLUMS values were used to determine the movement, speed of the servo motors and the sensitivity of the depth camera.  
+For the hardware part, the distance sensor and servo were connected to the Arduino, a mini breadboard was also used for necessary purposes. Servo motors were programmed to control a 2-axis pan/tilt kit, then the distance sensor was set on the mentioned kit to scan a wide area. ROWS and COLUMNS values were used to determine the movement, speed of the servo motors and the sensitivity of the depth camera.  
 Then the data read was printed in a serial manner to be captured by the Python side of the project.
 
 For the software part, data coming from the sensor were read and put in a 2D array and visualised with matplotlib. For optimization, gaussian filter and bilinear interpolation was applied to the data gathered.
