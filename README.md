@@ -4,7 +4,7 @@ This project, Cycloduck, was created in a software hackathon organised by INFINI
 
 The name Cycloduck comes from the resemblance of the created product to a duck and a cyclops.
 
-The aim of the project was to implement a wide ranged depth camera using a distance sensor and two servo motors as base structure. Due to it being more than a software project, two aspects will be mentions in this README file.
+The aim of the project was to implement a wide ranged depth camera using a distance sensor and two servo motors as base structure. Due to it being more than a software project, two aspects will be mentioned in this README file.
 
 For the hardware part, the distance sensor and servo were connected to the Arduino, a mini breadboard was also used for necessary purposes.
 
