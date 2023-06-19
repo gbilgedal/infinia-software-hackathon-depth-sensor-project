@@ -16,6 +16,7 @@ For the software part, data coming from the sensor were read and put in a 2D arr
 The rows and columns values were set to 45x45 for demo purposes. Values can be changed for desired sensitivity and output. It is important to have same dimensions on both the Python and the Arduino side of the project.
 
 ## Used Hardware:
+- Arduino UNO
 - VL53l1X Time-of-Flight Distance Sensor
 - 2 SG90 Mini Servo Motors 
 - 2-Axis Pan/Tilt Kit
