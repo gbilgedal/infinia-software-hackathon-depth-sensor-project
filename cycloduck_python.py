@@ -1,10 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import serial
-import numpy as np
 from scipy.interpolate import interp2d
 from scipy.ndimage import gaussian_filter
-import matplotlib.pyplot as plt
 
 # bilinear interpolation implementation
 def bilinear_interpolation(array, target_size):
