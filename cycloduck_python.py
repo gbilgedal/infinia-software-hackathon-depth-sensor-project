@@ -4,6 +4,20 @@ import serial
 from scipy.interpolate import interp2d
 from scipy.ndimage import gaussian_filter
 
+# Define serial communication port and baud rate
+BAUD_RATE = 115200
+COM_PORT = 'COM12'
+
+# Define row and column values for sensitivity of the depth map
+ROWS = 45
+COLS = 45
+
+# Augment row and column values for interpolation operation
+ROWS_I = ROWS *4
+COLS_I = ROWS*4
+
+raw_data = np.full((ROWS, COLS), 400)
+
 # bilinear interpolation implementation
 def bilinear_interpolation(array, target_size):
     array = gaussian_filter(array, sigma=1)
@@ -14,31 +28,21 @@ def bilinear_interpolation(array, target_size):
     y_new = np.linspace(0, array.shape[0] - 1, target_size[0])
     return interp_func(x_new, y_new)
 
-# Define row and column values for sensitivity of the depth map
-ROWS = 45
-COLS = 45
-
-#  Augment row and column values for interpolation operation
-ROWS_I = ROWS *4
-COLS_I = ROWS*4
-
-array = np.full((ROWS, COLS), 400)
-
-array_interpolated = bilinear_interpolation(array, (ROWS_I, COLS_I))
-ser = serial.Serial('COM12', 115200)  # Define serial connection with port and bandwidth
+array_interpolated = bilinear_interpolation(raw_data, (ROWS_I, COLS_I))
+ser = serial.Serial(COM_PORT, BAUD_RATE)
 
 # Create the plot
-fig, (ax1, ax2) = plt.subplots(1, 2)
-im = ax1.imshow(array, cmap='jet_r', vmin=0, vmax=400)
-im2 = ax2.imshow(array_interpolated, cmap='jet_r', vmin=0, vmax=400)
-plt.colorbar(im)
+fig, (ax_raw, ax_enhanced) = plt.subplots(1, 2)
+im_raw = ax_raw.imshow(raw_data, cmap='jet_r', vmin=0, vmax=400)
+im_enhanced = ax_enhanced.imshow(array_interpolated, cmap='jet_r', vmin=0, vmax=400)
+plt.colorbar(im_raw)
 
 # Set axis labels
-ax1.set_xlabel('Column')
-ax1.set_ylabel('Row')
+ax_raw.set_xlabel('Column')
+ax_raw.set_ylabel('Row')
 
 # Set title of the plot
-ax1.set_title('Array Plot')
+ax_raw.set_title('Array Plot')
 
 # Display the plot
 plt.show(block=False)
@@ -60,15 +64,15 @@ while True:
                 j = int(j_index)
                 value = int(data[distance_index + 1])
 
-                array[i][j] = (value/10)
+                raw_data[i][j] = (value/10)
 
                 print(f"Assigned value {value} to array[{i}][{j}]")
 
-                array_interpolated = bilinear_interpolation(array, (ROWS_I, COLS_I))
+                array_interpolated = bilinear_interpolation(raw_data, (ROWS_I, COLS_I))
 
                 # Update the plot with the new array values
-                im.set_array(array)
-                im2.set_array(array_interpolated)
+                im_raw.set_array(raw_data)
+                im_enhanced.set_array(array_interpolated)
 
                 # Redraw the plot
                 fig.canvas.draw()
